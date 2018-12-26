@@ -1,6 +1,6 @@
-import { getOptions } from 'loader-utils'
+import {getOptions} from 'loader-utils'
 
-const pxRegex = /url\([^\)]+\)|(\d*\.?\d+)px((\;?)(\s*)(\/\*(\s*)([\s\S]*)(\s*)\*\/))?/ig
+const pxRegex = /url\([^\)]+\)|(\d*\.?\d+)px((\;?)(\s*)(\/\*(.+?)\*\/))?/ig
 
 const baseOptions = {
     UIWidth: 750,
@@ -22,8 +22,8 @@ export default function (source) {
  * return replace function
  */
 function createPxReplace(UIWidth, minPixelValue, unitPrecision, targetUnit, rem) {
-    return function (m, $1, $2, $3, $4, $5, $6, $7, $8) {
-        if (!$1 || $7 === 'not convert') return m
+    return function (m, $1, $2, $3, $4, $5, $6, $7) {
+        if (!$1 || ($6 && ($6.indexOf('not convert') >= 0))) return m
         const pixels = parseFloat($1)
         if (pixels <= minPixelValue) return m
         if (targetUnit === 'vw') return px2vw(pixels, UIWidth).toFixed(unitPrecision) + targetUnit
