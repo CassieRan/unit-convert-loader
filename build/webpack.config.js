@@ -6,6 +6,7 @@ const src = path.resolve(__dirname, '../src')
 const nodeModules = path.resolve(__dirname, '../node_modules')
 const config = new Config();
 config
+    .externals('loader-utils')
     .mode('development')
     // Interact with entry points
     .entry('index')
@@ -39,24 +40,4 @@ config
 
 // Export the completed configuration object to be consumed by webpack
 module.exports = config.toConfig();
-
-// module.exports = {
-//     mode: 'development',
-//     entry: './src/index.js',
-//     output: {
-//         path: lib,
-//         filename: "index.js"
-//     },
-//     module: {
-//         rules: [
-//             {
-//                 enforce: 'pre',
-//                 test: /\.js$/,
-//                 loader: 'babel-loader',
-//                 exclude: nodeModules,
-//                 include: src
-//             },
-//         ]
-//     }
-// }
 
