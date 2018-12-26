@@ -2,9 +2,16 @@ import { getOptions } from 'loader-utils'
 
 const pxRegex = /url\([^\)]+\)|(\d*\.?\d+)px((\;?)(\s*)(\/\*(\s*)([\s\S]*)(\s*)\*\/))?/ig
 
+const baseOptions = {
+    UIWidth: 750,
+    minPixelValue: 1,
+    unitPrecision: 3,
+    targetUnit: 'vw'
+}
+
 export default function (source) {
     const options = getOptions(this)
-    const opts = Object.assign({}, options)
+    const opts = Object.assign({}, baseOptions, options)
     const pxReplace = createPxReplace(opts.UIWidth, opts.minPixelValue, opts.unitPrecision, opts.targetUnit, opts.rem)
     source = source.replace(pxRegex, pxReplace)
 
