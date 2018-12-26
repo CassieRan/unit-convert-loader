@@ -6,8 +6,8 @@ const src = path.resolve(__dirname, '../src')
 const nodeModules = path.resolve(__dirname, '../node_modules')
 const config = new Config();
 config
-    .externals('loader-utils')
-    .mode('development')
+    // .externals('loader-utils')
+    .mode('production')
     // Interact with entry points
     .entry('index')
     .add('./src/index.js')
